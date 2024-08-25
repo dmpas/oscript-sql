@@ -5,7 +5,7 @@
     <ProjectGuid>{EA173D06-CCD2-45D5-A263-DC866289517A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>OScriptSql</RootNamespace>
-    <AssemblyName>sql</AssemblyName>
+    <AssemblyName>1script_sql</AssemblyName>
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
