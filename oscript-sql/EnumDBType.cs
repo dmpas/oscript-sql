@@ -1,4 +1,5 @@
 ﻿using ScriptEngine.Machine.Contexts;
+using OneScript.Contexts;
 
 namespace OScriptSql
 {

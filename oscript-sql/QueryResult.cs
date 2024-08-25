@@ -1,11 +1,11 @@
 ﻿using ScriptEngine.Machine.Contexts;
-using ScriptEngine.HostedScript.Library.ValueTable;
+using OneScript.Contexts;
 using ScriptEngine.Machine;
 
 using System;
 using System.Data.Common;
-using ScriptEngine.HostedScript.Library.Binary;
-
+using OneScript.StandardLibrary.Binary;
+using OneScript.StandardLibrary.Collections.ValueTable;
 
 namespace OScriptSql
 {
@@ -71,11 +71,6 @@ namespace OScriptSql
                         continue;
                     }
                     
-                    
-                    //Console.WriteLine("queryresult-col-type:" + _reader.GetName(ColIdx) + " = " +  record.GetFieldType(ColIdx).ToString() + "::" + record.GetDataTypeName(ColIdx));
-
-                    
-
                     if (record.GetFieldType(ColIdx) == typeof(SByte))
                     {
                         row.Set(ColIdx, ValueFactory.Create((int)record.GetValue(ColIdx)));
@@ -122,7 +117,7 @@ namespace OScriptSql
                     {
                         var data = (byte[])record[ColIdx];
                         var newData = new BinaryDataContext(data);
-                        row.Set(ColIdx, ValueFactory.Create(newData));
+                        row.Set(ColIdx, newData);
                     }
                     else if (record.GetDataTypeName(ColIdx) == "uniqueidentifier")
                     {
