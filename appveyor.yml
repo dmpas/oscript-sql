@@ -63,16 +63,18 @@ test_script:
 after_build:
 - cmd: >-
 
-    del %main_project%\bin\%CONFIGURATION%\net6.0\*.pdb
+    dotnet publish %main_project%
 
-    OneScriptDocumenter.exe json oslib\Components\dotnet\syntaxHelp.json %main_project%\bin\%CONFIGURATION%\net6.0\1script_%main_project%.dll
+    cd %main_project%\bin\%CONFIGURATION%\net6.0\publish
+
+    del ScriptEngine*.dll NewtonSoft*.dll DotNetZip*.dll OneScript*.dll *.pdb
     
-    del %main_project%\bin\%CONFIGURATION%\ScriptEngine*.* %main_project%\bin\%CONFIGURATION%\net6.0\NewtonSoft*.* %main_project%\bin\%CONFIGURATION%\net6.0\DotNetZip*.*
+    cd ..\..\..\..\..
     
     xcopy %main_project%\bin\%CONFIGURATION%\net6.0\* oslib\Components\dotnet\
     
     cd oslib
-
+    
     ..\os2\bin\oscript.bat ..\os2\lib\opm\src\cmd\opm.os build .
     
     for %%X in (*.ospx) do (..\os2\bin\oscript.bat ..\os2\lib\opm\src\cmd\opm.os install -f %%X )

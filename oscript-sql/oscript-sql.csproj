@@ -9,10 +9,6 @@
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="MySql.Data" Version="8.0.24" />
     <PackageReference Include="Npgsql" Version="8.0.3" />
     <PackageReference Include="OneScript" Version="2.0.0-rc4" />
@@ -20,7 +16,6 @@
     <PackageReference Include="OneScript.StandardLibrary" Version="2.0.0-rc4" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
-    <PackageReference Include="System.Data.SQLite.EF6" Version="1.0.118" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
