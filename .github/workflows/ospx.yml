@@ -35,7 +35,7 @@ jobs:
                 cd oscript-sql\bin\Release\net6.0\publish
                 del ScriptEngine*.dll NewtonSoft*.dll DotNetZip*.dll OneScript*.dll *.pdb
                 cd ..\..\..\..\..
-                xcopy /E %main_project%\bin\Release\net6.0\publish\* oslib\Components\dotnet\
+                xcopy /E oscript-sql\bin\Release\net6.0\publish\* oslib\Components\dotnet\
                 cd oslib
                 ..\os2\bin\oscript.bat ..\os2\lib\opm\src\cmd\opm.os build .
                 for %%X in (*.ospx) do (..\os2\bin\oscript.bat ..\os2\lib\opm\src\cmd\opm.os install -f %%X )
