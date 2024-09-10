@@ -15,7 +15,7 @@ install:
 
     cd os2
 
-    appveyor DownloadFile https://oscript.io/downloads/night-build/fdd -FileName fdd.zip
+    appveyor DownloadFile https://oscript.io/downloads/night-build/x64/fdd -FileName fdd.zip
 
     7z x fdd.zip > NUL
     
