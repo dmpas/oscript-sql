@@ -12,7 +12,7 @@ jobs:
               run: |
                 mkdir os2
                 cd os2
-                appveyor DownloadFile https://oscript.io/downloads/night-build/x64/fdd -FileName fdd.zip
+                curl https://oscript.io/downloads/night-build/x64/fdd --output fdd.zip
                 7z x fdd.zip > NUL
                 bin\oscript.bat -version
                 bin\oscript.bat lib\opm\src\cmd\opm.os install opm
@@ -22,7 +22,7 @@ jobs:
               run: |
                 mkdir os1
                 cd os1
-                appveyor DownloadFile https://oscript.io/downloads/latest/zip -FileName latest.zip
+                curl https://oscript.io/downloads/latest/zip --output latest.zip
                 7z x latest.zip > NUL
                 bin\oscript.exe -version
                 bin\oscript.exe lib\opm\src\cmd\opm.os install opm
