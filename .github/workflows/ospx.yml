@@ -14,8 +14,8 @@ jobs:
                 cd os2
                 curl https://oscript.io/downloads/night-build/x64/fdd --output fdd.zip
                 7z x fdd.zip > NUL
-                bin\oscript.bat -version
-                bin\oscript.bat lib\opm\src\cmd\opm.os install opm
+                c:\windows\system32\cmd.exe /C bin\oscript.bat -version
+                c:\windows\system32\cmd.exe /C bin\oscript.bat lib\opm\src\cmd\opm.os install opm
                 cd ..
             - name: preinstall os1
               shell: cmd
@@ -37,8 +37,8 @@ jobs:
                 cd ..\..\..\..\..
                 xcopy /E oscript-sql\bin\Release\net6.0\publish\* oslib\Components\dotnet\
                 cd oslib
-                ..\os2\bin\oscript.bat ..\os2\lib\opm\src\cmd\opm.os build .
-                for %%X in (*.ospx) do (..\os2\bin\oscript.bat ..\os2\lib\opm\src\cmd\opm.os install -f %%X )
+                c:\windows\system32\cmd.exe /C ..\os2\bin\oscript.bat ..\os2\lib\opm\src\cmd\opm.os build .
+                for %%X in (*.ospx) do (c:\windows\system32\cmd.exe /C ..\os2\bin\oscript.bat ..\os2\lib\opm\src\cmd\opm.os install -f %%X )
                 for %%X in (*.ospx) do (..\os1\bin\oscript.exe ..\os1\lib\opm\src\cmd\opm.os install -f %%X )
                 cd ..
             - name: test os1
@@ -50,5 +50,5 @@ jobs:
               env:
                 OSLIB_LOADER_TRACE: 1
               run: |
-                os2\bin\oscript.bat testcomponent.os
+                c:\windows\system32\cmd.exe /C os2\bin\oscript.bat testcomponent.os
                 
