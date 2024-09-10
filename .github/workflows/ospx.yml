@@ -28,7 +28,7 @@ jobs:
                 bin\oscript.exe lib\opm\src\cmd\opm.os install opm
                 cd ..
             - name: build
-              run: dotnet publish
+              run: dotnet publish --configuration Release
             - name: pack-and-install
               shell: cmd
               run: |
