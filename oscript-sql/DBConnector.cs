@@ -2,6 +2,7 @@
 
 using System;
 using ScriptEngine.Machine.Contexts;
+using OneScript.Contexts;
 using System.Data.SqlClient;
 using System.Data.Common;
 using System.Data;

@@ -1,4 +1,5 @@
 ﻿using ScriptEngine.Machine.Contexts;
+using OneScript.Contexts;
 using ScriptEngine.Machine;
 using ScriptEngine.HostedScript.Library;
 using System.Data.SQLite;
@@ -6,8 +7,10 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
 using Npgsql;
-using ScriptEngine.HostedScript.Library.Binary;
 using System;
+using OneScript.StandardLibrary.Binary;
+using OneScript.StandardLibrary.Collections;
+using OneScript.Values;
 
 namespace OScriptSql
 {
@@ -90,27 +93,24 @@ namespace OScriptSql
 
                 param = _command.CreateParameter();
                 param.ParameterName = "@" + paramKey;
-                switch (paramVal.DataType)
+                switch (paramVal)
                 {
-                    case DataType.String:
-                        param.Value = paramVal.AsString();
+                    case BslStringValue _stringValue:
+                        param.Value = _stringValue.AsString();
                         break;
-                    case DataType.Number:
-                        param.Value = paramVal.AsNumber();
+                    case BslNumericValue _numericValue:
+                        param.Value = _numericValue.AsNumber();
                         break;
-                    case DataType.Date:
-                        param.Value = paramVal.AsDate();
+                    case BslDateValue _dateValue:
+                        param.Value = _dateValue.AsDate();
                         break;
-                    case DataType.Boolean:
-                        param.Value = paramVal.AsBoolean();
+                    case BslBooleanValue _bslBooleanValue:
+                        param.Value = _bslBooleanValue.AsBoolean();
                         break;
-                    case DataType.Object:
-                        if (paramVal.GetType() == typeof(BinaryDataContext))
-                        {
-                            param.Value = (paramVal as BinaryDataContext).Buffer;
-                        }
+                    case BinaryDataContext _binaryDataContext:
+                        param.Value = _binaryDataContext.Buffer;
                         break;
-                    case DataType.Undefined:
+                    case BslUndefinedValue _ :
                         param.Value = DBNull.Value;
                         break;
                 }
