@@ -70,7 +70,8 @@ namespace OScriptSql
                         row.Set(ColIdx, ValueFactory.Create());
                         continue;
                     }
-                    
+
+
                     if (record.GetFieldType(ColIdx) == typeof(SByte))
                     {
                         row.Set(ColIdx, ValueFactory.Create((int)record.GetValue(ColIdx)));
@@ -112,6 +113,10 @@ namespace OScriptSql
                     else if (record.GetFieldType(ColIdx).ToString() == "System.DateTime")
                     {
                         row.Set(ColIdx, ValueFactory.Create(record.GetDateTime(ColIdx)));
+                    }
+                    else if (record.GetFieldType(ColIdx).ToString() == "System.TimeSpan")
+                    {
+                        row.Set(ColIdx, ValueFactory.Create(new DateTime() + (TimeSpan)record[ColIdx]));
                     }
                     else if (record.GetFieldType(ColIdx).ToString() == "System.Byte[]")
                     {
