@@ -73,7 +73,7 @@ after_build:
     
     del /F /Q %BUILDDIR%\ScriptEngine*.* %BUILDDIR%\NewtonSoft*.* %BUILDDIR%\DotNetZip*.*
     
-    xcopy %BUILDDIR%\* oslib\Components\dotnet\
+    xcopy /E %BUILDDIR%\* oslib\Components\dotnet\
     
     cd oslib
 
