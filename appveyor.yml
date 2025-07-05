@@ -15,7 +15,7 @@ install:
 
     cd os2
 
-    appveyor DownloadFile https://oscript.io/downloads/night-build/x64/fdd -FileName fdd.zip
+    appveyor DownloadFile https://oscript.io/downloads/preview/OneScript-2.0.0-rc.7-fdd-x64.zip -FileName fdd.zip
 
     7z x fdd.zip > NUL
     
@@ -50,6 +50,7 @@ build:
   verbosity: minimal
 configuration: Release
 test_script:
+- cmd: dotnet nuget locals all --clear
 - cmd: >-
     set OSLIB_LOADER_TRACE=1
     
@@ -61,20 +62,23 @@ test_script:
     os1\bin\oscript.exe testcomponent.os
 
 after_build:
+- ps: dotnet publish --no-build --configuration $env:Configuration
 - cmd: >-
 
-    dotnet publish %main_project%
+    set BUILDDIR=%main_project%\bin\%CONFIGURATION%\net6.0\publish  
 
-    cd %main_project%\bin\%CONFIGURATION%\net6.0\publish
+    del %BUILDDIR%\ScriptEngine*.* %BUILDDIR%\NewtonSoft*.* %BUILDDIR%\DotNetZip*.* %BUILDDIR%\*.pdb
+    
+    mkdir oslib\Components\dotnet
 
-    del ScriptEngine*.dll NewtonSoft*.dll DotNetZip*.dll OneScript*.dll *.pdb
+    OneScriptDocumenter.exe json oslib\Components\dotnet\syntaxHelp.json %BUILDDIR%\1script_%main_project%.dll
     
-    cd ..\..\..\..\..
+    del %BUILDDIR%\ScriptEngine*.* %BUILDDIR%\NewtonSoft*.* %BUILDDIR%\DotNetZip*.*
     
-    xcopy /E %main_project%\bin\%CONFIGURATION%\net6.0\publish\* oslib\Components\dotnet\
+    xcopy %BUILDDIR%\* oslib\Components\dotnet\
     
     cd oslib
-    
+
     ..\os2\bin\oscript.bat ..\os2\lib\opm\src\cmd\opm.os build .
     
     for %%X in (*.ospx) do (..\os2\bin\oscript.bat ..\os2\lib\opm\src\cmd\opm.os install -f %%X )
