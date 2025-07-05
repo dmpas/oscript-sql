@@ -67,8 +67,6 @@ after_build:
 
     set BUILDDIR=%main_project%\bin\%CONFIGURATION%\net6.0\publish  
 
-    del %BUILDDIR%\ScriptEngine*.* %BUILDDIR%\NewtonSoft*.* %BUILDDIR%\DotNetZip*.* %BUILDDIR%\*.pdb
-    
     mkdir oslib\Components\dotnet
 
     OneScriptDocumenter.exe json oslib\Components\dotnet\syntaxHelp.json %BUILDDIR%\1script_%main_project%.dll
