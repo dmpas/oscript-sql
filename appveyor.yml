@@ -65,7 +65,7 @@ after_build:
 - ps: dotnet publish --no-build --configuration $env:Configuration
 - cmd: >-
 
-    set BUILDDIR=%main_project%\bin\%CONFIGURATION%\net6.0\publish  
+    set BUILDDIR=%main_project%\bin\%CONFIGURATION%\net6.0\publish
 
     mkdir oslib\Components\dotnet
 
