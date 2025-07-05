@@ -73,7 +73,7 @@ after_build:
 
     OneScriptDocumenter.exe json oslib\Components\dotnet\syntaxHelp.json %BUILDDIR%\1script_%main_project%.dll
     
-    del %BUILDDIR%\ScriptEngine*.* %BUILDDIR%\NewtonSoft*.* %BUILDDIR%\DotNetZip*.*
+    del /F /Q %BUILDDIR%\ScriptEngine*.* %BUILDDIR%\NewtonSoft*.* %BUILDDIR%\DotNetZip*.*
     
     xcopy %BUILDDIR%\* oslib\Components\dotnet\
     
