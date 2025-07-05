@@ -1,3 +1,6 @@
+2024-11-04 dmpas <sergey.batanov@dmpas.ru>
+    [added] Поддержка 2.0
+	
 2018-12-03 ret-Phoenix <dev@itpath.ru>
     [added] Метод Пустой() - Булево.
     

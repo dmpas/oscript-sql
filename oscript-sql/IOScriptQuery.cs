@@ -1,4 +1,5 @@
-﻿using ScriptEngine.Machine;
+﻿using OneScript.StandardLibrary.Collections;
+using ScriptEngine.Machine;
 using ScriptEngine.HostedScript.Library;
 
 namespace OScriptSql

@@ -1,0 +1,54 @@
+name: OSPX
+on: [push, pull_request]
+jobs:
+    build:
+        runs-on: windows-latest
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+            - name: preinstall os2
+              shell: cmd
+              run: |
+                mkdir os2
+                cd os2
+                curl https://oscript.io/downloads/night-build/x64/fdd --output fdd.zip
+                7z x fdd.zip > NUL
+                c:\windows\system32\cmd.exe /C bin\oscript.bat -version
+                c:\windows\system32\cmd.exe /C bin\oscript.bat lib\opm\src\cmd\opm.os install opm
+                cd ..
+            - name: preinstall os1
+              shell: cmd
+              run: |
+                mkdir os1
+                cd os1
+                curl https://oscript.io/downloads/latest/zip --output latest.zip
+                7z x latest.zip > NUL
+                bin\oscript.exe -version
+                bin\oscript.exe lib\opm\src\cmd\opm.os install opm
+                cd ..
+            - name: build
+              run: dotnet publish --configuration Release
+            - name: pack-and-install
+              shell: cmd
+              run: |
+                cd oscript-sql\bin\Release\net6.0\publish
+                del ScriptEngine*.dll NewtonSoft*.dll DotNetZip*.dll OneScript*.dll *.pdb
+                cd ..\..\..\..\..
+                xcopy /E oscript-sql\bin\Release\net6.0\publish\* oslib\Components\dotnet\
+                cd oslib
+                c:\windows\system32\cmd.exe /C ..\os2\bin\oscript.bat ..\os2\lib\opm\src\cmd\opm.os build .
+                for %%X in (*.ospx) do (c:\windows\system32\cmd.exe /C ..\os2\bin\oscript.bat ..\os2\lib\opm\src\cmd\opm.os install -f %%X )
+                for %%X in (*.ospx) do (..\os1\bin\oscript.exe ..\os1\lib\opm\src\cmd\opm.os install -f %%X )
+                cd ..
+            - name: test os1
+              env:
+                OSLIB_LOADER_TRACE: 1
+              run: |
+                os1\bin\oscript.exe testcomponent.os
+            - name: test os2
+              env:
+                OSLIB_LOADER_TRACE: 1
+              run: |
+                c:\windows\system32\cmd.exe /C os2\bin\oscript.bat testcomponent.os
+                
