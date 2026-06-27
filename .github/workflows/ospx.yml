@@ -87,7 +87,7 @@ jobs:
 
           del %PUBLISH%\ScriptEngine*.* %PUBLISH%\NewtonSoft*.* %PUBLISH%\DotNetZip*.*
 
-          xcopy %PUBLISH%\* oslib\Components\dotnet\ /Y
+          xcopy %PUBLISH%\* oslib\Components\dotnet\ /Y /E
           xcopy README.md oslib\ /Y
 
           cd oslib
