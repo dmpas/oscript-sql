@@ -12,7 +12,7 @@ permissions:
   contents: write
 
 env:
-  MAIN_PROJECT: sql
+  MAIN_PROJECT: oscript-sql
   CONFIGURATION: Release
   OS1_LINK: https://oscript.io/downloads/1_9_4/x64/OneScript-1.9.4-x64.zip
   OS2_LINK: https://oscript.io/downloads/latest/OneScript-2.1.0-fdd-x64.zip
@@ -78,12 +78,12 @@ jobs:
       - name: Package
         shell: cmd
         run: |
-          set PUBLISH=%main_project%\bin\%CONFIGURATION%\net8.0\publish
+          set PUBLISH=%MAIN_PROJECT%\bin\%CONFIGURATION%\net8.0\publish
           del %PUBLISH%\*.pdb
 
           mkdir oslib\Components\dotnet
 
-          OneScriptDocumenter.exe json oslib\Components\dotnet\syntaxHelp.json %PUBLISH%\1script_%MAIN_PROJECT%.dll
+          OneScriptDocumenter.exe json oslib\Components\dotnet\syntaxHelp.json %PUBLISH%\1script_sql.dll
 
           del %PUBLISH%\ScriptEngine*.* %PUBLISH%\NewtonSoft*.* %PUBLISH%\DotNetZip*.*
 
