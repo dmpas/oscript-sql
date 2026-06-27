@@ -78,16 +78,16 @@ jobs:
       - name: Package
         shell: cmd
         run: |
-          set PUBLISH=%PUBLISH%\net8.0\publish
+          set PUBLISH=%main_project%\bin\%CONFIGURATION%\net8.0\publish
           del %PUBLISH%\*.pdb
 
           mkdir oslib\Components\dotnet
 
           OneScriptDocumenter.exe json oslib\Components\dotnet\syntaxHelp.json %PUBLISH%\1script_%MAIN_PROJECT%.dll
 
-          del %PUBLISH%\ScriptEngine*.* %PUBLISH%\net8.0\NewtonSoft*.* %PUBLISH%\net8.0\DotNetZip*.*
+          del %PUBLISH%\ScriptEngine*.* %PUBLISH%\NewtonSoft*.* %PUBLISH%\DotNetZip*.*
 
-          xcopy %PUBLISH%\net8.0\* oslib\Components\dotnet\ /Y
+          xcopy %PUBLISH%\* oslib\Components\dotnet\ /Y
           xcopy README.md oslib\ /Y
 
           cd oslib
